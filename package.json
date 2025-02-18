@@ -1,0 +1,22 @@
+{
+  "name": "pokedex-apc",
+  "version": "1.0.0",
+  "description": "This repository contains a coding exercise for new developers joining the frontend development team.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khali1/pokedex-apc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khali1/pokedex-apc/issues"
+  },
+  "homepage": "https://github.com/khali1/pokedex-apc#readme"
+}
