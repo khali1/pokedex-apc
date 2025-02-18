@@ -7,7 +7,8 @@
     "example": "example"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently -c \"blue,magenta\" -n \"🕸️  client,🚀 server\" -k \"cd frontend && yarn dev\" \"cd backend && yarn start\""
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/khali1/pokedex-apc/issues"
   },
-  "homepage": "https://github.com/khali1/pokedex-apc#readme"
+  "homepage": "https://github.com/khali1/pokedex-apc#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
 }
