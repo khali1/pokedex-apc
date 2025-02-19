@@ -1,46 +1,25 @@
 'use client';
-import Image from 'next/image';
-import styles from './page.module.css';
+import styles from './page.module.scss';
 import { useQuery } from '@tanstack/react-query';
-import { gql } from 'graphql-tag';
-import { print } from 'graphql';
 import { GQLQuery } from '../../graphqlTypes';
-
-const GET_POKEMONS = gql`
-  query GetPokemons {
-    pokemons(query: { limit: 10, offset: 0 }) {
-      edges {
-        name
-      }
-    }
-  }
-`;
+import { GET_POKEMONS } from '@/api/queries';
+import { fetchGraphQL } from '@/api/fetchers';
+import { PokemonCard } from '@/components/PokemonCard/PokemonCard';
 
 export default function Home() {
   const { data, error, isLoading } = useQuery<GQLQuery>({
     queryKey: ['pokemons'],
-    queryFn: async () => {
-      const res = await fetch('/graphql', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: print(GET_POKEMONS),
-        }),
-      });
-
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const { data } = await res.json();
-      return data;
-    },
+    queryFn: () => fetchGraphQL(GET_POKEMONS),
   });
-  console.log(error, data);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
-    <div className={styles.page}>
+    <div className={styles.container}>
+        {data?.pokemons.edges.map((pokemon) => (
+          <PokemonCard key={pokemon.name} pokemon={pokemon} />
+        ))}
     </div>
   );
 }

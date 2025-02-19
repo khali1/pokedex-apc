@@ -1,8 +1,7 @@
-'use client';
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import "@/styles/globals.scss";
+import { Providers } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +13,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const queryClient = new QueryClient();
+export const metadata: Metadata = {
+  title: 'Pokedex App',
+  description: 'A simple Pokedex application',
+  icons: {
+    icon: [
+      { url: '/favicon.png', type: 'image/png' }
+    ]
+  },
+};
 
 export default function RootLayout({
   children,
@@ -22,12 +29,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Providers>
           {children}
-        </body>
-      </html>
-    </QueryClientProvider>
+        </Providers>
+      </body>
+    </html>
   );
 }
