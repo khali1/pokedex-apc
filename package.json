@@ -22,5 +22,6 @@
   "homepage": "https://github.com/khali1/pokedex-apc#readme",
   "devDependencies": {
     "concurrently": "^9.1.2"
-  }
+  },
+  "dependencies": {}
 }
