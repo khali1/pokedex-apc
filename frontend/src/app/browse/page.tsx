@@ -5,12 +5,12 @@ import { GQLQuery } from "../../../graphqlTypes";
 import { GET_POKEMON_TYPES, GET_POKEMONS } from "@/api/queries";
 import { fetchGraphQL } from "@/api/fetchers";
 import { PokemonCard } from "@/components/PokemonCard/PokemonCard";
-import { useState } from "react";
+import { useQueryState } from "nuqs";
 import Select from "react-select";
 
 export default function BrowsePage() {
-  const [search, setSearch] = useState("");
-  const [type, setType] = useState<string | null>(null);
+  const [search, setSearch] = useQueryState("search", { defaultValue: "" });
+  const [type, setType] = useQueryState("type", { defaultValue: "" });
 
   const { data: typesData } = useQuery<GQLQuery>({
     queryKey: ["pokemonTypes"],
@@ -40,10 +40,14 @@ export default function BrowsePage() {
         />
         <Select
           isClearable
+          value={{
+            label: type,
+            value: type,
+          }}
           options={
             typesData?.pokemonTypes.map((type) => ({
               label: type,
-              value: type.toLowerCase(),
+              value: type,
             })) || []
           }
           onChange={(e) => setType(e?.value || null)}
