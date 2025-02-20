@@ -1,9 +1,9 @@
-import styles from './PokemonCard.module.scss';
-import Link from 'next/link';
-import { GQLPokemon } from '../../../graphqlTypes';
+import styles from "./PokemonCard.module.scss";
+import Link from "next/link";
+import { GQLPokemon } from "../../../graphqlTypes";
 
 interface PokemonCardProps {
-  pokemon: GQLPokemon;
+  pokemon: Partial<GQLPokemon>;
 }
 
 export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
@@ -12,4 +12,4 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
       <h2>{pokemon.name}</h2>
     </Link>
   );
-}; 
+};
