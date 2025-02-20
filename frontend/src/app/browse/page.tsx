@@ -1,12 +1,18 @@
 "use client";
 import styles from "./page.module.scss";
-import { useQuery } from "@tanstack/react-query";
+import {
+  useQuery,
+  useInfiniteQuery,
+  InfiniteData,
+} from "@tanstack/react-query";
 import { GQLQuery } from "../../../graphqlTypes";
 import { GET_POKEMON_TYPES, GET_POKEMONS } from "@/api/queries";
 import { fetchGraphQL } from "@/api/fetchers";
 import { PokemonCard } from "@/components/PokemonCard/PokemonCard";
 import { useQueryState, parseAsArrayOf, parseAsString } from "nuqs";
 import Select from "react-select";
+
+const LIMIT = 10;
 
 export default function BrowsePage() {
   const [search, setSearch] = useQueryState("search", { defaultValue: "" });
@@ -19,15 +25,28 @@ export default function BrowsePage() {
     queryFn: () => fetchGraphQL(GET_POKEMON_TYPES),
   });
 
-  const { data, error, isLoading } = useQuery<GQLQuery>({
+  const {
+    data,
+    error,
+    isLoading,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  } = useInfiniteQuery<GQLQuery, Error, InfiniteData<GQLQuery>>({
     queryKey: ["pokemons", search, type],
-    queryFn: () =>
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) =>
+      Math.ceil(lastPage.pokemons.count / LIMIT) > pages.length
+        ? pages.length
+        : undefined,
+    queryFn: (context) =>
       fetchGraphQL(GET_POKEMONS, {
+        limit: LIMIT,
+        offset: (context.pageParam as number) * 10,
         search,
         filter: type && type.length ? { type } : undefined,
       }),
   });
-
   // if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -60,9 +79,19 @@ export default function BrowsePage() {
           }}
         />
       </div>
-      {data?.pokemons.edges.map((pokemon) => (
-        <PokemonCard key={pokemon.name} pokemon={pokemon} />
-      ))}
+      {data?.pages
+        .flatMap((page) => page.pokemons.edges)
+        .map((pokemon) => (
+          <PokemonCard key={pokemon.name} pokemon={pokemon} />
+        ))}
+      <button
+        disabled={isFetchingNextPage || !hasNextPage}
+        onClick={() => {
+          fetchNextPage();
+        }}
+      >
+        Load more
+      </button>
     </div>
   );
 }

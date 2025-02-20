@@ -32,6 +32,7 @@ p, h1, h2, h3, h4, h5, h6 {
 :root {
   --background: #ffffff;
   --foreground: #000000;
+  color: var(--foreground);
 
   @media (prefers-color-scheme: dark) {
     --background: #000000;
@@ -60,4 +61,5 @@ button {
   background: none;
   border: none;
   cursor: pointer;
+  color: var(--foreground);
 } 
