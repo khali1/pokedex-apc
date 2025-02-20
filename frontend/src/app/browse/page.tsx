@@ -5,13 +5,15 @@ import { GQLQuery } from "../../../graphqlTypes";
 import { GET_POKEMON_TYPES, GET_POKEMONS } from "@/api/queries";
 import { fetchGraphQL } from "@/api/fetchers";
 import { PokemonCard } from "@/components/PokemonCard/PokemonCard";
-import { useQueryState } from "nuqs";
+import { useQueryState, parseAsArrayOf, parseAsString } from "nuqs";
 import Select from "react-select";
 
 export default function BrowsePage() {
   const [search, setSearch] = useQueryState("search", { defaultValue: "" });
-  const [type, setType] = useQueryState("type", { defaultValue: "" });
-
+  const [type, setType] = useQueryState<string[]>(
+    "type",
+    parseAsArrayOf(parseAsString)
+  );
   const { data: typesData } = useQuery<GQLQuery>({
     queryKey: ["pokemonTypes"],
     queryFn: () => fetchGraphQL(GET_POKEMON_TYPES),
@@ -22,7 +24,7 @@ export default function BrowsePage() {
     queryFn: () =>
       fetchGraphQL(GET_POKEMONS, {
         search,
-        filter: { type },
+        filter: type && type.length ? { type } : undefined,
       }),
   });
 
@@ -40,17 +42,22 @@ export default function BrowsePage() {
         />
         <Select
           isClearable
-          value={{
-            label: type,
-            value: type,
-          }}
+          isMulti
+          value={
+            type?.map((type) => ({
+              label: type,
+              value: type,
+            })) || []
+          }
           options={
             typesData?.pokemonTypes.map((type) => ({
               label: type,
               value: type,
             })) || []
           }
-          onChange={(e) => setType(e?.value || null)}
+          onChange={(e) => {
+            setType(e?.map((value) => value.value) || null);
+          }}
         />
       </div>
       {data?.pokemons.edges.map((pokemon) => (

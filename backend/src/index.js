@@ -27,8 +27,8 @@ const resolvers = {
 
       if (filter) {
         if (filter.type) {
-          const regex = new RegExp(filter.type, 'i');
-          pokemons = _.filter(pokemons,p => _.some(p.types, t => t.match(regex)));
+          const regexes = filter.type.map(type => new RegExp(type, 'i'));
+          pokemons = _.filter(pokemons,p => _.some(p.types, t => _.some(regexes, r => t.match(r))));
         }
 
         if (filter.isFavorite) {

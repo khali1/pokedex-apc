@@ -40,7 +40,7 @@ input PokemonsQueryInput {
 }
 
 input PokemonFilterInput {
-    type: String
+    type: [String]
     isFavorite: Boolean
 }
 
