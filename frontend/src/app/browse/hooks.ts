@@ -6,7 +6,7 @@ import { GQLQuery } from "../../../graphqlTypes";
 import { ResultsPreference } from "@/constants";
 import { useMemo } from "react";
 
-const LIMIT = 10;
+const LIMIT = 2;
 
 export const useBrowsePokemons = (search: String, type: String[] | null, resultsPreference: ResultsPreference) => {
   const { data: typesData, isLoading: isTypesLoading } = useQuery<GQLQuery>({
@@ -38,7 +38,7 @@ export const useBrowsePokemons = (search: String, type: String[] | null, results
       queryFn: (context) =>
         fetchGraphQL(GET_POKEMONS, {
           limit: LIMIT,
-          offset: (context.pageParam as number) * 10,
+          offset: (context.pageParam as number) * LIMIT,
           search,
           filter: filters,
         }),

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { FAVORITE_POKEMON, UNFAVORITE_POKEMON } from "./api/queries";
-import { fetchGraphQL } from "./api/fetchers";
-import { GQLMutation } from "../graphqlTypes";
+import { FAVORITE_POKEMON, UNFAVORITE_POKEMON } from "../api/queries";
+import { fetchGraphQL } from "../api/fetchers";
+import { GQLMutation } from "../../graphqlTypes";
 
 export const useFavoritePokemon = () => {
     const queryClient = useQueryClient();

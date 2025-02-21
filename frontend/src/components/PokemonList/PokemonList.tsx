@@ -3,7 +3,7 @@ import { GQLPokemon } from "../../../graphqlTypes";
 import { PokemonCard } from "../PokemonCard/PokemonCard";
 import cx from "classnames";
 import styles from "./PokemonList.module.scss";
-import { useFavoritePokemon } from "@/hooks";
+import { useFavoritePokemon } from "@/hooks/useFavoritePokemon";
 
 const PokemonList = ({
   values,

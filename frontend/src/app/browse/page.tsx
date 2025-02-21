@@ -9,6 +9,7 @@ import { IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
 import { useLocalStorage } from "@mantine/hooks";
 import { LayoutPreference, ResultsPreference } from "@/constants";
 import { useState } from "react";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 
 export default function BrowsePage() {
   const [resultsPreference, setResultsPreference] = useState<ResultsPreference>(
@@ -34,6 +35,12 @@ export default function BrowsePage() {
     hasNextPage,
     types,
   } = useBrowsePokemons(search, type, resultsPreference);
+
+  const loadMoreRef = useInfiniteScroll({
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  });
 
   // if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -72,17 +79,12 @@ export default function BrowsePage() {
       {data?.pages && (
         <PokemonList
           layout={layout}
-          values={data?.pages.flatMap((page) => page.pokemons.edges)}
+          values={data.pages.flatMap((page) => page.pokemons.edges)}
         />
       )}
-      <button
-        disabled={isFetchingNextPage || !hasNextPage}
-        onClick={() => {
-          fetchNextPage();
-        }}
-      >
-        Load more
-      </button>
+      <div ref={loadMoreRef} className={styles.loadMore}>
+        {isFetchingNextPage && <div>Loading more...</div>}
+      </div>
     </div>
   );
 }
