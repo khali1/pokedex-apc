@@ -8,7 +8,7 @@ import PokemonList from "@/components/PokemonList/PokemonList";
 import { IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
 import { useLocalStorage } from "@mantine/hooks";
 import { LayoutPreference, ResultsPreference } from "@/constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 
 export default function BrowsePage() {
@@ -25,6 +25,11 @@ export default function BrowsePage() {
     key: "layout-preference",
     defaultValue: LayoutPreference.Grid,
   });
+
+  // Fixes the infinite data fetching when changing the layout in the middle of the list
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [layout]);
 
   const {
     data,
@@ -47,7 +52,7 @@ export default function BrowsePage() {
 
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.controls}>
         <SegmentedControl
           value={resultsPreference}
           onChange={(value) => setResultsPreference(value as ResultsPreference)}
