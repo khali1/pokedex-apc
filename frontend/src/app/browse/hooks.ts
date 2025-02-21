@@ -7,7 +7,7 @@ import { GQLQuery } from "../../../graphqlTypes";
 const LIMIT = 10;
 
 export const useBrowsePokemons = (search: String, type: String[] | null) => {
-  const { data: typesData } = useQuery<GQLQuery>({
+  const { data: typesData, isLoading: isTypesLoading } = useQuery<GQLQuery>({
     queryKey: ["pokemonTypes"],
     queryFn: () => fetchGraphQL(GET_POKEMON_TYPES),
   });
@@ -38,7 +38,7 @@ export const useBrowsePokemons = (search: String, type: String[] | null) => {
     return {
       data,
       error,
-      isLoading,
+      isLoading: isTypesLoading || isLoading,
       fetchNextPage,
       isFetchingNextPage,
       hasNextPage,

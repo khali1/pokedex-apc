@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.scss";
 import { Providers } from "./providers";
+import "@mantine/core/styles.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,12 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Pokedex App',
-  description: 'A simple Pokedex application',
+  title: "Pokedex App",
+  description: "A simple Pokedex application",
   icons: {
-    icon: [
-      { url: '/favicon.png', type: 'image/png' }
-    ]
+    icon: [{ url: "/favicon.png", type: "image/png" }],
   },
 };
 
@@ -31,9 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

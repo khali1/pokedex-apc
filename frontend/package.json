@@ -10,8 +10,12 @@
     "generate:types": "graphql-schema-typescript generate-ts ../backend/src/schema.graphql"
   },
   "dependencies": {
+    "@mantine/core": "^7.17.0",
+    "@mantine/hooks": "^7.17.0",
+    "@tabler/icons-react": "^3.30.0",
     "@tanstack/react-query": "^5.66.7",
     "axios": "^1.7.9",
+    "classnames": "^2.5.1",
     "graphql": "^16.10.0",
     "graphql-tag": "^2.12.6",
     "next": "15.1.7",
