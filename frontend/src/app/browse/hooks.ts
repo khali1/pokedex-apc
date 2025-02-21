@@ -6,7 +6,7 @@ import { GQLQuery } from "../../../graphqlTypes";
 import { ResultsPreference } from "@/constants";
 import { useMemo } from "react";
 
-const LIMIT = 2;
+const LIMIT = 10;
 
 export const useBrowsePokemons = (search: String, type: String[] | null, resultsPreference: ResultsPreference) => {
   const { data: typesData, isLoading: isTypesLoading } = useQuery<GQLQuery>({
