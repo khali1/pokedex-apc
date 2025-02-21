@@ -1,12 +1,25 @@
 import { fetchGraphQL } from "@/api/fetchers";
 import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
+import { GET_POKEMONS, GET_POKEMON_TYPES } from "@/api/queries";
+import { useQuery } from "@tanstack/react-query";
 import { GQLQuery } from "../../../graphqlTypes";
-import { GET_POKEMONS } from "@/api/queries";
 
 const LIMIT = 10;
 
-export const useBrowseQuery = (search: String, type: String[] | null) => {
-  return useInfiniteQuery<GQLQuery, Error, InfiniteData<GQLQuery>>({
+export const useBrowsePokemons = (search: String, type: String[] | null) => {
+  const { data: typesData } = useQuery<GQLQuery>({
+    queryKey: ["pokemonTypes"],
+    queryFn: () => fetchGraphQL(GET_POKEMON_TYPES),
+  });
+
+  const {
+    data,
+    error,
+    isLoading,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  } = useInfiniteQuery<GQLQuery, Error, InfiniteData<GQLQuery>>({
       queryKey: ["pokemons", search, type],
       initialPageParam: 0,
       getNextPageParam: (lastPage, pages) =>
@@ -21,4 +34,14 @@ export const useBrowseQuery = (search: String, type: String[] | null) => {
           filter: type && type.length ? { type } : undefined,
         }),
     });
+
+    return {
+      data,
+      error,
+      isLoading,
+      fetchNextPage,
+      isFetchingNextPage,
+      hasNextPage,
+      types: typesData?.pokemonTypes,
+    }
 };

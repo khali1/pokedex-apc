@@ -1,4 +1,5 @@
 "use client";
+import { useMemo } from "react";
 import Select from "react-select";
 
 const TypeFilter = ({
@@ -9,26 +10,30 @@ const TypeFilter = ({
   value: string[];
   options: string[];
   onChange: (value: string[] | null) => void;
-}) => (
-  <Select
-    isClearable
-    isMulti
-    value={
-      value?.map((type) => ({
-        label: type,
-        value: type,
-      })) || []
-    }
-    options={
-      options?.map((type) => ({
-        label: type,
-        value: type,
-      })) || []
-    }
-    onChange={(e) => {
-      onChange(e && e.length ? e.map((value) => value.value) : null);
-    }}
-  />
-);
+}) => {
+  const memoOptions = useMemo(() => {
+    return options?.map((type) => ({
+      label: type,
+      value: type,
+    }));
+  }, [options]);
+
+  return (
+    <Select
+      isClearable
+      isMulti
+      value={
+        value?.map((type) => ({
+          label: type,
+          value: type,
+        })) || []
+      }
+      options={memoOptions}
+      onChange={(e) => {
+        onChange(e && e.length ? e.map((value) => value.value) : null);
+      }}
+    />
+  );
+};
 
 export default TypeFilter;

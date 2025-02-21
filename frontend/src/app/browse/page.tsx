@@ -1,11 +1,7 @@
 "use client";
 import styles from "./page.module.scss";
-import { useQuery } from "@tanstack/react-query";
-import { GQLQuery } from "../../../graphqlTypes";
-import { GET_POKEMON_TYPES } from "@/api/queries";
-import { fetchGraphQL } from "@/api/fetchers";
 import { useQueryState, parseAsArrayOf, parseAsString } from "nuqs";
-import { useBrowseQuery } from "./hooks";
+import { useBrowsePokemons } from "./hooks";
 import TypeFilter from "./components/TypeFilter/TypeFilter";
 import PokemonGrid from "@/components/PokemonGrid/PokemonGrid";
 
@@ -18,10 +14,6 @@ export default function BrowsePage() {
     defaultValue: null,
     parse: parseAsArrayOf(parseAsString).parse,
   });
-  const { data: typesData } = useQuery<GQLQuery>({
-    queryKey: ["pokemonTypes"],
-    queryFn: () => fetchGraphQL(GET_POKEMON_TYPES),
-  });
 
   const {
     data,
@@ -30,7 +22,9 @@ export default function BrowsePage() {
     fetchNextPage,
     isFetchingNextPage,
     hasNextPage,
-  } = useBrowseQuery(search, type);
+    types,
+  } = useBrowsePokemons(search, type);
+
   // if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -45,7 +39,7 @@ export default function BrowsePage() {
         />
         <TypeFilter
           value={type || []}
-          options={typesData?.pokemonTypes || []}
+          options={types || []}
           onChange={setType}
         />
       </div>
