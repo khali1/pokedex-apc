@@ -7,9 +7,13 @@ import TypeFilter from "./components/TypeFilter/TypeFilter";
 import PokemonList from "@/components/PokemonList/PokemonList";
 import { IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
 import { useLocalStorage } from "@mantine/hooks";
-import { LayoutPreference } from "@/constants";
+import { LayoutPreference, ResultsPreference } from "@/constants";
+import { useState } from "react";
 
 export default function BrowsePage() {
+  const [resultsPreference, setResultsPreference] = useState<ResultsPreference>(
+    ResultsPreference.All
+  );
   const [search, setSearch] = useQueryState("search", { defaultValue: "" });
   const [type, setType] = useQueryState<string[] | null>("type", {
     clearOnDefault: true,
@@ -29,7 +33,7 @@ export default function BrowsePage() {
     isFetchingNextPage,
     hasNextPage,
     types,
-  } = useBrowsePokemons(search, type);
+  } = useBrowsePokemons(search, type, resultsPreference);
 
   // if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -37,6 +41,14 @@ export default function BrowsePage() {
   return (
     <div className={styles.container}>
       <div>
+        <SegmentedControl
+          value={resultsPreference}
+          onChange={(value) => setResultsPreference(value as ResultsPreference)}
+          data={[
+            { label: "Favorites", value: ResultsPreference.Favorites },
+            { label: "All", value: ResultsPreference.All },
+          ]}
+        />
         <input
           type="text"
           placeholder="Search"
