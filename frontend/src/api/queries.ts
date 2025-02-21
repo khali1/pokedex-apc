@@ -6,6 +6,7 @@ export const GET_POKEMONS = gql`
         id
         name
         types
+        isFavorite
       }
       count
     }
@@ -17,3 +18,22 @@ export const GET_POKEMON_TYPES = gql`
     pokemonTypes
   }
 `;
+
+export const FAVORITE_POKEMON = gql`
+  mutation FavoritePokemon($id: ID!) {
+    favoritePokemon(id: $id) {
+      id
+      isFavorite
+    }
+  }
+`;
+
+export const UNFAVORITE_POKEMON = gql`
+  mutation UnfavoritePokemon($id: ID!) {
+    unFavoritePokemon(id: $id) {
+      id
+      isFavorite
+    }
+  }
+`;
+

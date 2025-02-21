@@ -3,6 +3,7 @@ import { GQLPokemon } from "../../../graphqlTypes";
 import { PokemonCard } from "../PokemonCard/PokemonCard";
 import cx from "classnames";
 import styles from "./PokemonList.module.scss";
+import { useFavoritePokemon } from "@/hooks";
 
 const PokemonList = ({
   values,
@@ -11,6 +12,8 @@ const PokemonList = ({
   values: Partial<GQLPokemon>[];
   layout: LayoutPreference;
 }) => {
+  const { favorite, unfavorite } = useFavoritePokemon();
+
   return (
     <div
       className={cx({
@@ -18,7 +21,12 @@ const PokemonList = ({
       })}
     >
       {values.map((value) => (
-        <PokemonCard key={value.id} pokemon={value} />
+        <PokemonCard
+          key={value.id}
+          pokemon={value}
+          favoritePokemon={favorite.mutate}
+          unfavoritePokemon={unfavorite.mutate}
+        />
       ))}
     </div>
   );

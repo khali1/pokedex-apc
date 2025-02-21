@@ -17,4 +17,8 @@
   @include vars.mobile {
     margin: 0.25rem;
   }
+
+  svg {
+    color: red; 
+  }
 } 
