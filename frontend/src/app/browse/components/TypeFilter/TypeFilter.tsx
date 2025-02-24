@@ -11,7 +11,7 @@ const TypeFilter = ({
   options,
   onChange,
 }: {
-  value: string[];
+  value: string[] | null;
   options: string[];
   onChange: (value: string[] | null) => void;
 }) => {
@@ -22,27 +22,28 @@ const TypeFilter = ({
       <div className={styles.trigger} onClick={() => setIsOpen(!isOpen)}>
         <span
           className={cx(styles.placeholder, {
-            [styles.hidden]: value.length !== 0,
+            [styles.hidden]: value?.length !== 0,
           })}
         >
           Filter by Type
         </span>
-        {value.map((val) => (
+        {value?.map((val) => (
           <TypeTag
             key={val}
             type={val}
             onXClick={(type) => {
-              onChange(value.filter((v) => v !== type));
+              const filtered = value?.filter((v) => v !== type);
+              onChange(filtered.length > 0 ? filtered : null);
             }}
           />
         ))}
         <IconX
           className={cx({
-            [styles.hidden]: value.length === 0,
+            [styles.hidden]: value?.length === 0,
           })}
           onClick={(e) => {
             e.stopPropagation();
-            onChange([]);
+            onChange(null);
           }}
         />
       </div>
@@ -54,14 +55,14 @@ const TypeFilter = ({
       />
       <div className={`${styles.dropdown} ${isOpen ? styles.open : ""}`}>
         {options
-          .filter((type) => !value.includes(type))
+          .filter((type) => !value?.includes(type))
           .map((type) => (
             <div
               key={type}
               className={styles.option}
               onClick={(e) => {
                 e.stopPropagation();
-                onChange([...value, type]);
+                onChange([...(value || []), type]);
               }}
             >
               {type}
