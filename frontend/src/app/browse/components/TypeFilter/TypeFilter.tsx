@@ -1,5 +1,4 @@
 "use client";
-import { MultiSelect } from "@mantine/core";
 
 const TypeFilter = ({
   value,
@@ -13,14 +12,22 @@ const TypeFilter = ({
   onChange: (value: string[] | null) => void;
 }) => {
   return (
-    <MultiSelect
-      className={className}
-      clearable
-      value={value}
-      data={options}
-      onChange={onChange}
-      placeholder="Filter by type"
-    />
+    <div>
+      {value.map((a) => (
+        <div>
+          <div>{a}</div>
+          <div onClick={() => onChange(value.filter((b) => b !== a))}>x</div>
+        </div>
+      ))}
+      <div onClick={() => onChange([])}>x</div>
+      <div>
+        {options
+          .filter((a) => !value.includes(a))
+          .map((a) => (
+            <div onClick={() => onChange([...value, a])}>{a}</div>
+          ))}
+      </div>
+    </div>
   );
 };
 

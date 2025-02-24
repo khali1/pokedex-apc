@@ -1,5 +1,4 @@
 "use client";
-import { SegmentedControl } from "@mantine/core";
 import { useQueryState, parseAsArrayOf, parseAsString } from "nuqs";
 import { useBrowsePokemons } from "./hooks";
 import TypeFilter from "./components/TypeFilter/TypeFilter";
@@ -53,7 +52,7 @@ export default function BrowsePage() {
   return (
     <div className={styles.container}>
       <div className={styles.controls}>
-        <SegmentedControl
+        {/* <SegmentedControl
           className={styles.contentSwitcher}
           value={resultsPreference}
           onChange={(value) => setResultsPreference(value as ResultsPreference)}
@@ -61,7 +60,7 @@ export default function BrowsePage() {
             { label: "Favorites", value: ResultsPreference.Favorites },
             { label: "All", value: ResultsPreference.All },
           ]}
-        />
+        /> */}
         <div className={styles.filters}>
           <input
             className={styles.search}
@@ -76,7 +75,7 @@ export default function BrowsePage() {
             options={types || []}
             onChange={setType}
           />
-          <SegmentedControl
+          {/* <SegmentedControl
             className={styles.listView}
             value={layout}
             onChange={(value) => setLayout(value as LayoutPreference)}
@@ -84,7 +83,7 @@ export default function BrowsePage() {
               { label: <IconLayoutGrid />, value: LayoutPreference.Grid },
               { label: <IconLayoutList />, value: LayoutPreference.List },
             ]}
-          />
+          /> */}
         </div>
       </div>
       {data?.pages && (
