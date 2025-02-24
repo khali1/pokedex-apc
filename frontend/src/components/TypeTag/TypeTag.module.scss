@@ -1,16 +1,20 @@
 .typeTag {
-  padding: 4px 8px;
-  background-color: #f0f0f0;
+  height: 3rem;
+  width: fit-content;
   cursor: pointer;
   margin: 5px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-}
+  gap: 1rem;
+  padding: 0 1rem;
+  padding-right: 1rem;
+  border-radius: 1.5rem;
+  color: white;
+  background-color: #999;
 
-.icon {
-  width: 50px;
-  height: 50px;
+  .icon {
+    width: 1.5rem;
+  }
 }
 
 .bug {

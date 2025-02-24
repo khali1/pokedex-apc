@@ -1,24 +1,65 @@
 @use "../../styles/variables" as vars;
 
 .card {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   padding: 1rem;
   border: 1px solid vars.$secondary-color;
-  border-radius: vars.$border-radius;
   margin: 0.5rem;
   text-decoration: none;
   color: inherit;
   transition: transform vars.$transition-duration;
 
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
   &:hover {
     transform: translateY(-2px);
   }
 
-  @include vars.mobile {
-    margin: 0.25rem;
-  }
-
   .favoriteButton {
     color: red;
+  }
+
+  .typeTags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 3rem;
+  }
+}
+
+:global(.list) {
+  .card {
+    overflow: hidden;
+    position: relative;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    height: 20rem;
+    padding: 2rem;
+
+    .header {
+      width: fit-content;
+      gap: 1rem;
+    }
+
+    .imageWrapper {
+      width: 30rem;
+      max-width: 30rem;
+      margin-right: 10rem;
+    }
+
+    .typeTags {
+      position: absolute;
+      right: 2rem;
+      flex-direction: column;
+      align-items: flex-end;
+    }
   }
 }

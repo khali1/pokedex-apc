@@ -30,16 +30,20 @@ export const PokemonCard = ({
 
   return (
     <Link href={`/${pokemon.name}`} className={styles.card}>
-      <h2>{pokemon.name}</h2>
+      <div className={styles.header}>
+        <h2>{pokemon.name}</h2>
+        <button className={styles.favoriteButton} onClick={onClick}>
+          {pokemon.isFavorite ? <IconHeartFilled /> : <IconHeart />}
+        </button>
+      </div>
       <div className={styles.imageWrapper}>
         <img src={pokemon.image} alt={pokemon.name} />
       </div>
-      {pokemon.types?.map((type) => (
-        <TypeTag type={type} key={type} />
-      ))}
-      <button className={styles.favoriteButton} onClick={onClick}>
-        {pokemon.isFavorite ? <IconHeartFilled /> : <IconHeart />}
-      </button>
+      <div className={styles.typeTags}>
+        {pokemon.types?.map((type) => (
+          <TypeTag type={type} key={type} />
+        ))}
+      </div>
     </Link>
   );
 };

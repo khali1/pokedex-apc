@@ -1,6 +1,6 @@
 export enum LayoutPreference {
   Grid = "grid",
-  List = "list",
+  List = "list"
 };
 
 export enum ResultsPreference {

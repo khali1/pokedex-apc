@@ -22,7 +22,7 @@ const TypeTag = ({ type, onXClick }: TypeTagProps) => {
         router.push(`/browse/?type=${type}`);
       }}
     >
-      <Icon className={styles.icon} />
+      <Icon className={`${styles.icon}`} />
       <span>{type}</span>
       {onXClick && (
         <IconX
