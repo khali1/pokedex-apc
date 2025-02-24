@@ -36,7 +36,10 @@ const TypeFilter = ({
           />
         ))}
       </div>
-
+      <div
+        className={`${styles.backdrop} ${isOpen ? styles.open : ""}`}
+        onClick={() => setIsOpen(false)}
+      />
       <div className={`${styles.dropdown} ${isOpen ? styles.open : ""}`}>
         {options
           .filter((type) => !value.includes(type))
