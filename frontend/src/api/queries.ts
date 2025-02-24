@@ -7,6 +7,7 @@ export const GET_POKEMONS = gql`
         name
         types
         isFavorite
+        image
       }
       count
     }
