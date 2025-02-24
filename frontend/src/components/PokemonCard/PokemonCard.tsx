@@ -37,7 +37,7 @@ export const PokemonCard = ({
       {pokemon.types?.map((type) => (
         <TypeTag type={type} key={type} />
       ))}
-      <button onClick={onClick}>
+      <button className={styles.favoriteButton} onClick={onClick}>
         {pokemon.isFavorite ? <IconHeartFilled /> : <IconHeart />}
       </button>
     </Link>

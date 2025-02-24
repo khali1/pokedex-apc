@@ -1,6 +1,6 @@
 $primary-color: #333;
 $secondary-color: #666;
-$border-radius: 8px;
+$border-radius: 1rem;
 $transition-duration: 0.2s;
 
 // Breakpoints
@@ -25,4 +25,4 @@ $desktop: 1024px;
   @media (min-width: $desktop) {
     @content;
   }
-} 
+}
