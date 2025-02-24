@@ -1,8 +1,9 @@
 .container {
+  --input-bd: red;
+  --input-bg: green;
 }
 
 .controls {
-  display: flex;
   gap: 1rem;
   position: sticky;
   top: 0;
@@ -10,6 +11,26 @@
   z-index: 100;
   padding: 1rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
+  .contentSwitcher {
+    width: 100%;
+  }
+
+  .filters {
+    display: flex;
+    gap: 1rem;
+    .search {
+      border-radius: 20px;
+      flex-grow: 1;
+    }
+    .type {
+      border-radius: 20px;
+      flex-grow: 1;
+    }
+
+    .listView {
+    }
+  }
 }
 
 .loadMore {

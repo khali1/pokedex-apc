@@ -1,5 +1,4 @@
 "use client";
-import styles from "./page.module.scss";
 import { SegmentedControl } from "@mantine/core";
 import { useQueryState, parseAsArrayOf, parseAsString } from "nuqs";
 import { useBrowsePokemons } from "./hooks";
@@ -10,6 +9,7 @@ import { useLocalStorage } from "@mantine/hooks";
 import { LayoutPreference, ResultsPreference } from "@/constants";
 import { useEffect, useState } from "react";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import styles from "./page.module.scss";
 
 export default function BrowsePage() {
   const [resultsPreference, setResultsPreference] = useState<ResultsPreference>(
@@ -54,6 +54,7 @@ export default function BrowsePage() {
     <div className={styles.container}>
       <div className={styles.controls}>
         <SegmentedControl
+          className={styles.contentSwitcher}
           value={resultsPreference}
           onChange={(value) => setResultsPreference(value as ResultsPreference)}
           data={[
@@ -61,25 +62,30 @@ export default function BrowsePage() {
             { label: "All", value: ResultsPreference.All },
           ]}
         />
-        <input
-          type="text"
-          placeholder="Search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <TypeFilter
-          value={type || []}
-          options={types || []}
-          onChange={setType}
-        />
-        <SegmentedControl
-          value={layout}
-          onChange={(value) => setLayout(value as LayoutPreference)}
-          data={[
-            { label: <IconLayoutGrid />, value: LayoutPreference.Grid },
-            { label: <IconLayoutList />, value: LayoutPreference.List },
-          ]}
-        />
+        <div className={styles.filters}>
+          <input
+            className={styles.search}
+            type="text"
+            placeholder="Search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <TypeFilter
+            className={styles.type}
+            value={type || []}
+            options={types || []}
+            onChange={setType}
+          />
+          <SegmentedControl
+            className={styles.listView}
+            value={layout}
+            onChange={(value) => setLayout(value as LayoutPreference)}
+            data={[
+              { label: <IconLayoutGrid />, value: LayoutPreference.Grid },
+              { label: <IconLayoutList />, value: LayoutPreference.List },
+            ]}
+          />
+        </div>
       </div>
       {data?.pages && (
         <PokemonList

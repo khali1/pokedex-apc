@@ -5,13 +5,22 @@ const TypeFilter = ({
   value,
   options,
   onChange,
+  className,
 }: {
+  className: string;
   value: string[];
   options: string[];
   onChange: (value: string[] | null) => void;
 }) => {
   return (
-    <MultiSelect clearable value={value} data={options} onChange={onChange} />
+    <MultiSelect
+      className={className}
+      clearable
+      value={value}
+      data={options}
+      onChange={onChange}
+      placeholder="Filter by type"
+    />
   );
 };
 
