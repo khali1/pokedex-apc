@@ -8,6 +8,11 @@ $mobile: 600px;
 $tablet: 768px;
 $desktop: 1024px;
 
+// zIndexes
+$zIndex-modal: 100;
+$zIndex-backdrop: 99;
+$zIndex-menu: 90;
+
 // Mixins
 @mixin mobile {
   @media (max-width: $mobile) {

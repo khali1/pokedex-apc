@@ -1,3 +1,5 @@
+@use "../../styles/variables" as vars;
+
 .container {
   --input-bd: red;
   --input-bg: green;
@@ -9,7 +11,7 @@
   position: sticky;
   top: 0;
   background-color: white;
-  z-index: 100;
+  z-index: vars.$zIndex-menu;
   padding: 1rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 

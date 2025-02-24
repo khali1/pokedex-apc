@@ -1,3 +1,5 @@
+@use "../../../../styles/variables" as vars;
+
 .container {
   position: relative;
   display: inline-block;
@@ -27,7 +29,7 @@
   right: 0;
   bottom: 0;
   background: transparent;
-  z-index: 99;
+  z-index: vars.$zIndex-backdrop;
   display: none;
 
   &.open {
@@ -47,7 +49,7 @@
   transform: translateY(-10px);
   visibility: hidden;
   transition: all 0.2s ease-in-out;
-  z-index: 100;
+  z-index: vars.$zIndex-menu;
 
   &.open {
     opacity: 1;
