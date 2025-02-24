@@ -22,7 +22,7 @@ const TypeFilter = ({
       <div className={styles.trigger} onClick={() => setIsOpen(!isOpen)}>
         <span
           className={cx(styles.placeholder, {
-            [styles.notEmpty]: value.length !== 0,
+            [styles.hidden]: value.length !== 0,
           })}
         >
           Filter by Type
@@ -37,6 +37,9 @@ const TypeFilter = ({
           />
         ))}
         <IconX
+          className={cx({
+            [styles.hidden]: value.length === 0,
+          })}
           onClick={(e) => {
             e.stopPropagation();
             onChange([]);

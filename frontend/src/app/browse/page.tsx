@@ -9,6 +9,7 @@ import { LayoutPreference, ResultsPreference } from "@/constants";
 import { useEffect, useState } from "react";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import styles from "./page.module.scss";
+import ContentSwitcher from "./components/ContentSwitcher/ContentSwitcher";
 
 export default function BrowsePage() {
   const [resultsPreference, setResultsPreference] = useState<ResultsPreference>(
@@ -53,15 +54,14 @@ export default function BrowsePage() {
   return (
     <div className={styles.container}>
       <div className={styles.controls}>
-        {/* <SegmentedControl
-          className={styles.contentSwitcher}
+        <ContentSwitcher
           value={resultsPreference}
           onChange={(value) => setResultsPreference(value as ResultsPreference)}
           data={[
             { label: "Favorites", value: ResultsPreference.Favorites },
             { label: "All", value: ResultsPreference.All },
           ]}
-        /> */}
+        />
         <div className={styles.filters}>
           <input
             className={styles.search}
@@ -71,20 +71,18 @@ export default function BrowsePage() {
             onChange={(e) => setSearch(e.target.value)}
           />
           <TypeFilter
-            className={styles.type}
             value={type || []}
             options={types || []}
             onChange={setType}
           />
-          {/* <SegmentedControl
-            className={styles.listView}
+          <ContentSwitcher
             value={layout}
             onChange={(value) => setLayout(value as LayoutPreference)}
             data={[
               { label: <IconLayoutGrid />, value: LayoutPreference.Grid },
               { label: <IconLayoutList />, value: LayoutPreference.List },
             ]}
-          /> */}
+          />
         </div>
       </div>
       {data?.pages && (
