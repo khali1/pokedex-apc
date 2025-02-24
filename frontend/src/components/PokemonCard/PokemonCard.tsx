@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { GQLPokemon } from "../../../graphqlTypes";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import { useCallback } from "react";
+import TypeTag from "../TypeTag/TypeTag";
 
 interface PokemonCardProps {
   pokemon: Partial<GQLPokemon>;
@@ -33,6 +34,7 @@ export const PokemonCard = ({
       <div className={styles.imageWrapper}>
         <img src={pokemon.image} alt={pokemon.name} />
       </div>
+      <TypeTag type={pokemon.types?.[0]} />
       <button onClick={onClick}>
         {pokemon.isFavorite ? <IconHeartFilled /> : <IconHeart />}
       </button>
