@@ -4,6 +4,7 @@ import { useState } from "react";
 import styles from "./TypeFilter.module.scss";
 import cx from "classnames";
 import TypeTag from "@/components/TypeTag/TypeTag";
+import { IconX } from "@tabler/icons-react";
 
 const TypeFilter = ({
   value,
@@ -35,10 +36,18 @@ const TypeFilter = ({
             }}
           />
         ))}
+        <IconX
+          onClick={(e) => {
+            e.stopPropagation();
+            onChange([]);
+          }}
+        />
       </div>
       <div
         className={`${styles.backdrop} ${isOpen ? styles.open : ""}`}
-        onClick={() => setIsOpen(false)}
+        onClick={() => {
+          setIsOpen(false);
+        }}
       />
       <div className={`${styles.dropdown} ${isOpen ? styles.open : ""}`}>
         {options
@@ -47,9 +56,9 @@ const TypeFilter = ({
             <div
               key={type}
               className={styles.option}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 onChange([...value, type]);
-                setIsOpen(false);
               }}
             >
               {type}
