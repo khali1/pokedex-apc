@@ -20,14 +20,17 @@ const PokemonList = ({
         [styles.grid]: layout === LayoutPreference.Grid,
       })}
     >
-      {values.map((value) => (
-        <PokemonCard
-          key={value.id}
-          pokemon={value}
-          favoritePokemon={favorite.mutate}
-          unfavoritePokemon={unfavorite.mutate}
-        />
-      ))}
+      {values.map((value) => {
+        console.log(value.id);
+        return (
+          <PokemonCard
+            key={value.id}
+            pokemon={value}
+            favoritePokemon={favorite.mutate}
+            unfavoritePokemon={unfavorite.mutate}
+          />
+        );
+      })}
     </div>
   );
 };

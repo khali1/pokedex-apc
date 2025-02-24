@@ -19,6 +19,7 @@ const ContentSwitcher = ({
       <div>
         {data.map((val) => (
           <div
+            key={val.value}
             className={cx({
               [styles.active]: value === val.value,
             })}
