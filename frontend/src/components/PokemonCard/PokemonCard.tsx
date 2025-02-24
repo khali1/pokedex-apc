@@ -34,7 +34,9 @@ export const PokemonCard = ({
       <div className={styles.imageWrapper}>
         <img src={pokemon.image} alt={pokemon.name} />
       </div>
-      <TypeTag type={pokemon.types?.[0]} />
+      {pokemon.types?.map((type) => (
+        <TypeTag type={type} key={type} />
+      ))}
       <button onClick={onClick}>
         {pokemon.isFavorite ? <IconHeartFilled /> : <IconHeart />}
       </button>
