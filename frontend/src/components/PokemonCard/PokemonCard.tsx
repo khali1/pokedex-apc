@@ -10,6 +10,7 @@ import {
 import { useCallback, useState } from "react";
 import TypeTag from "../TypeTag/TypeTag";
 import Modal from "../Modal/Modal";
+import PokemonCardModal from "./PokemonCardModal";
 
 interface PokemonCardProps {
   pokemon: Partial<GQLPokemon>;
@@ -49,7 +50,6 @@ export const PokemonCard = ({
             <button
               className={styles.infoButton}
               onClick={(e) => {
-                e.stopPropagation();
                 setIsInfoModalOpen(!isInfoModalOpen);
               }}
             >
@@ -69,9 +69,10 @@ export const PokemonCard = ({
         ))}
       </div>
       {isInfoModalOpen && (
-        <Modal onClose={() => setIsInfoModalOpen(false)}>
-          <div>Info</div>
-        </Modal>
+        <PokemonCardModal
+          name={pokemon.name}
+          onClose={() => setIsInfoModalOpen(false)}
+        />
       )}
     </div>
   );
