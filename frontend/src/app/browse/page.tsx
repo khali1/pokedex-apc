@@ -20,6 +20,7 @@ export default function BrowsePage() {
     defaultValue: null,
     parse: parseAsArrayOf(parseAsString).parse,
   });
+
   const [layout, setLayout] = useLocalStorage<LayoutPreference>({
     key: "layout-preference",
     defaultValue: LayoutPreference.Grid,
