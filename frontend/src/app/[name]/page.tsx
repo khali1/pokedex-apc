@@ -10,6 +10,7 @@ import { PokemonCard } from "@/components/PokemonCard/PokemonCard";
 import { useFavoritePokemon } from "@/hooks/useFavoritePokemon";
 import { SoundPlayer } from "./SoundPlayer/SoundPlayer";
 import { motion } from "framer-motion";
+import TypeTag from "@/components/TypeTag/TypeTag";
 
 export default function PokemonDetail() {
   const { name } = useParams<{ name: string }>();
@@ -29,18 +30,79 @@ export default function PokemonDetail() {
 
   return (
     <div className={styles.container}>
+      <Link href="/browse" className={styles.backLink}>
+        ← Back to list
+      </Link>
+      <h2 className={styles.name}>{pokemon?.name}</h2>
       <div className={styles.content}>
-        <div className={styles.imageWrapper}>
+        <div className={styles.stats}>
+          <div className={styles.physical}>
+            <div>
+              <h3>Weight</h3>
+              <p>
+                {pokemon?.weight.minimum} - {pokemon?.weight.maximum}
+              </p>
+            </div>
+            <div>
+              <h3>Height</h3>
+              <p>
+                {pokemon?.height.minimum} - {pokemon?.height.maximum}
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.battle}>
+            <div>
+              <h3>Max CP</h3>
+              <p>{pokemon?.maxCP}</p>
+            </div>
+            <div>
+              <h3>Max HP</h3>
+              <p>{pokemon?.maxHP}</p>
+            </div>
+          </div>
+
+          <div className={styles.types}>
+            <h3>Types</h3>
+            <div className={styles.tags}>
+              {pokemon?.types.map((type) => (
+                <TypeTag key={type} type={type} />
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.attributes}>
+            <div>
+              <h3>Weaknesses</h3>
+              <div className={styles.tags}>
+                {pokemon?.weaknesses.map((type) => (
+                  <TypeTag key={type} type={type} />
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3>Resistant</h3>
+              <div className={styles.tags}>
+                {pokemon?.resistant.map((type) => (
+                  <TypeTag key={type} type={type} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.media}>
           <motion.img
             layoutId={`pokemon-${name}`}
-            // Use cached image first, then fall back to detail data
+            className={styles.image}
             src={cachedData?.image || pokemon?.image}
             alt={name}
           />
+          <SoundPlayer sound={pokemon?.sound} className={styles.soundPlayer} />
         </div>
-        <SoundPlayer sound={pokemon?.sound} />
       </div>
       <div className={styles.evolutions}>
+        <h2>Evolutions</h2>
         {pokemon?.evolutions.map((evolution) => (
           <PokemonCard
             secondary
@@ -51,9 +113,6 @@ export default function PokemonDetail() {
           />
         ))}
       </div>
-      <Link href="/browse" className={styles.backLink}>
-        ← Back to list
-      </Link>
     </div>
   );
 }

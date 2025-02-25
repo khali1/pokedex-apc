@@ -2,10 +2,15 @@
 import { IconVolume } from "@tabler/icons-react";
 import { useRef } from "react";
 
-export const SoundPlayer = ({ sound }: { sound?: string }) => {
+interface SoundPlayerProps {
+  sound?: string;
+  className?: string;
+}
+
+export const SoundPlayer = ({ sound, className }: SoundPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   return (
-    <>
+    <div className={className}>
       <audio ref={audioRef} src={sound} />
       <IconVolume
         onClick={() => {
@@ -13,6 +18,6 @@ export const SoundPlayer = ({ sound }: { sound?: string }) => {
           audioRef.current?.play();
         }}
       />
-    </>
+    </div>
   );
 };

@@ -1,19 +1,117 @@
+@use "../../styles/variables" as vars;
+
 .container {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+
+  .name {
+    padding: 1rem;
+    background-image: linear-gradient(
+      to right,
+      vars.$foreground,
+      vars.$background-light
+    );
+  }
+
+  .backLink {
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
 
   .content {
-    .metadata {
-      .name{}
-      .types{}
-      .stats{}
-      .physical{}
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 2rem;
+    background: vars.$background-light;
+    border-left: 0.25rem solid vars.$foreground;
+
+    .stats {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+
+      h3 {
+        margin-bottom: 1rem;
+      }
+
+      .physical,
+      .battle {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .types,
+      .attributes {
+        .tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+      }
+
+      .attributes {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+    }
+
+    .media {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      position: relative;
+
+      .image {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .soundPlayer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1;
+      }
     }
   }
-  .evolutions {
 
+  .evolutions {
+    margin-top: 4rem;
+
+    h2 {
+      font-size: 2.4rem;
+    }
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  @include vars.mobile {
+    padding: 2rem 1rem;
+
+    .content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 1rem;
+
+      h2 {
+        font-size: 2.4rem;
+      }
+    }
+
+    .evolutions {
+      margin-top: 2rem;
+
+      h2 {
+        font-size: 2rem;
+      }
+    }
   }
 }

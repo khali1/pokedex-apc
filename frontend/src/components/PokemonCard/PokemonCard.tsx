@@ -42,7 +42,7 @@ export const PokemonCard = ({
         <Link href={`/${pokemon.name}`}>
           <h2>{pokemon.name}</h2>
         </Link>
-        <div>
+        <div className={styles.headerButtons}>
           <button className={styles.favoriteButton} onClick={onClick}>
             {pokemon.isFavorite ? <IconHeartFilled /> : <IconHeart />}
           </button>
