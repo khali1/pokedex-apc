@@ -13,6 +13,7 @@ export const SoundPlayer = ({ sound, className }: SoundPlayerProps) => {
     <div className={className}>
       <audio ref={audioRef} src={sound} />
       <IconVolume
+        style={{ cursor: "pointer" }}
         onClick={() => {
           if (!sound) return;
           audioRef.current?.play();

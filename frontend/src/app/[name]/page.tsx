@@ -11,6 +11,7 @@ import { useFavoritePokemon } from "@/hooks/useFavoritePokemon";
 import { SoundPlayer } from "./SoundPlayer/SoundPlayer";
 import { motion } from "framer-motion";
 import TypeTag from "@/components/TypeTag/TypeTag";
+import { IconArrowLeft } from "@tabler/icons-react";
 
 export default function PokemonDetail() {
   const { name } = useParams<{ name: string }>();
@@ -31,9 +32,15 @@ export default function PokemonDetail() {
   return (
     <div className={styles.container}>
       <Link href="/browse" className={styles.backLink}>
-        ← Back to list
+        <IconArrowLeft /> Browse
       </Link>
-      <h2 className={styles.name}>{pokemon?.name}</h2>
+      <div className={styles.header}>
+        <h2 className={styles.name}>{pokemon?.name}</h2>
+        <div className={styles.icons}>
+          <SoundPlayer sound={pokemon?.sound} />
+        </div>
+      </div>
+
       <div className={styles.content}>
         <div className={styles.stats}>
           <div className={styles.physical}>
@@ -98,21 +105,24 @@ export default function PokemonDetail() {
             src={cachedData?.image || pokemon?.image}
             alt={name}
           />
-          <SoundPlayer sound={pokemon?.sound} className={styles.soundPlayer} />
         </div>
       </div>
-      <div className={styles.evolutions}>
-        <h2>Evolutions</h2>
-        {pokemon?.evolutions.map((evolution) => (
-          <PokemonCard
-            secondary
-            key={evolution.id}
-            pokemon={evolution}
-            unfavoritePokemon={unfavorite.mutate}
-            favoritePokemon={favorite.mutate}
-          />
-        ))}
-      </div>
+      {pokemon?.evolutions?.length ? (
+        <div className={styles.evolutions}>
+          <h2>Evolutions</h2>
+          <div className={styles.evolutionsContent}>
+            {pokemon?.evolutions.map((evolution) => (
+              <PokemonCard
+                secondary
+                key={evolution.id}
+                pokemon={evolution}
+                unfavoritePokemon={unfavorite.mutate}
+                favoritePokemon={favorite.mutate}
+              />
+            ))}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
