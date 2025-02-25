@@ -19,6 +19,8 @@
   position: relative;
   z-index: vars.$zIndex-modal;
   overflow-y: scroll;
+  border: 1px solid vars.$foreground;
+  background-color: vars.$background-light;
 }
 
 .backdrop {

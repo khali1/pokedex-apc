@@ -17,10 +17,54 @@ const PokemonCardModal = ({
     queryFn: () => fetchGraphQL(GET_POKEMON_BY_NAME, { name }),
   });
 
+  const pokemon = data?.pokemonByName;
+
   return (
     <Modal onClose={onClose}>
       <div className={styles.container}>
-        <pre>{JSON.stringify(data, null, 2)}</pre>
+        <h2>Additional information</h2>
+        <h3>{name}</h3>
+        <div className={styles.pokemonInfo}>
+          <div>
+            <h4>Type</h4>
+            <p>{pokemon?.types.join(", ") || "None"}</p>
+          </div>
+          <div>
+            <h4>Max Height</h4>
+            <p>{pokemon?.height.maximum}</p>
+          </div>
+          <div>
+            <h4>Max Weight</h4>
+            <p>{pokemon?.weight.maximum}</p>
+          </div>
+          <div>
+            <h4>Max CP</h4>
+            <p>{pokemon?.maxCP}</p>
+          </div>
+          <div>
+            <h4>Max HP</h4>
+            <p>{pokemon?.maxHP}</p>
+          </div>
+          <div>
+            <h4>Resistance</h4>
+            <p>{pokemon?.resistant.join(", ") || "None"}</p>
+          </div>
+          <div>
+            <h4>Weaknesses</h4>
+            <p>{pokemon?.weaknesses.join(", ") || "None"}</p>
+          </div>
+          {pokemon?.attacks &&
+            Object.keys(pokemon?.attacks).map((key) => (
+              <div>
+                <h4>Attacks - {key}</h4>
+                <p>
+                  {pokemon?.attacks[key as keyof typeof pokemon.attacks]
+                    .map((attack) => attack.name)
+                    .join(", ") || "None"}
+                </p>
+              </div>
+            ))}
+        </div>
       </div>
     </Modal>
   );
