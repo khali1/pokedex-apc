@@ -7,21 +7,29 @@
   .hidden {
     display: none;
   }
-}
 
-.trigger {
-  padding: 8px 16px;
-  border: 2px solid #e0e0e0;
-  background: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  .trigger {
+    padding: 0 1rem;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-color: vars.$background-light;
+    transition: background-color vars.$transition-duration;
 
-  .placeholder {
-    color: #e0e0e0;
+    .placeholder {
+      color: vars.$font-color-dim;
+    }
+  }
+
+  &.open {
+    .trigger {
+      background-color: vars.$foreground;
+    }
   }
 }
+
 .backdrop {
   position: fixed;
   top: 0;
@@ -32,7 +40,7 @@
   z-index: vars.$zIndex-backdrop;
   display: none;
 
-  &.open {
+  .open & {
     display: block;
   }
 }
@@ -40,16 +48,16 @@
 .dropdown {
   position: absolute;
   top: calc(100% + 8px);
-  left: 0;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  //Counter the parent border
+  left: -0.25rem;
+  background: vars.$background-light;
+  border: 0.25rem solid vars.$foreground;
   min-width: 200px;
   opacity: 0;
   transform: translateY(-10px);
   visibility: hidden;
-  transition: all 0.2s ease-in-out;
-  z-index: vars.$zIndex-menu;
+  transition: all vars.$transition-duration ease-in-out;
+  z-index: vars.$zIndex-modal;
 
   &.open {
     opacity: 1;
@@ -59,19 +67,17 @@
 }
 
 .option {
-  padding: 8px 16px;
+  padding: 1rem 2rem;
   cursor: pointer;
   transition: background 0.2s;
 
+  &.disabled {
+    color: vars.$font-color-dim;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
   &:hover {
-    background: #f5f5f5;
-  }
-
-  &:first-child {
-    border-radius: 8px 8px 0 0;
-  }
-
-  &:last-child {
-    border-radius: 0 0 8px 8px;
+    background: vars.$foreground;
   }
 }

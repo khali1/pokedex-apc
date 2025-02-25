@@ -16,19 +16,17 @@ const ContentSwitcher = ({
 }) => {
   return (
     <div className={styles.container}>
-      <div>
-        {data.map((val) => (
-          <div
-            key={val.value}
-            className={cx({
-              [styles.active]: value === val.value,
-            })}
-            onClick={() => onChange(val.value)}
-          >
-            {val.label}
-          </div>
-        ))}
-      </div>
+      {data.map((val) => (
+        <div
+          key={val.value}
+          className={cx({
+            [styles.active]: value === val.value,
+          })}
+          onClick={() => onChange(val.value)}
+        >
+          {val.label}
+        </div>
+      ))}
     </div>
   );
 };

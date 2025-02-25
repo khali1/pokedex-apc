@@ -10,7 +10,9 @@ const TypeFilter = ({
   value,
   options,
   onChange,
+  className,
 }: {
+  className?: string;
   value: string[] | null;
   options: string[];
   onChange: (value: string[] | null) => void;
@@ -18,14 +20,18 @@ const TypeFilter = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={styles.container}>
+    <div
+      className={cx(styles.container, className, {
+        [styles.open]: isOpen,
+      })}
+    >
       <div className={styles.trigger} onClick={() => setIsOpen(!isOpen)}>
         <span
           className={cx(styles.placeholder, {
             [styles.hidden]: value?.length !== 0,
           })}
         >
-          Filter by Type
+          Filter by up to 3 types
         </span>
         {value?.map((val) => (
           <TypeTag
@@ -48,18 +54,20 @@ const TypeFilter = ({
         />
       </div>
       <div
-        className={`${styles.backdrop} ${isOpen ? styles.open : ""}`}
+        className={cx(styles.backdrop)}
         onClick={() => {
           setIsOpen(false);
         }}
       />
-      <div className={`${styles.dropdown} ${isOpen ? styles.open : ""}`}>
+      <div className={cx(styles.dropdown, { [styles.open]: isOpen })}>
         {options
           .filter((type) => !value?.includes(type))
           .map((type) => (
             <div
               key={type}
-              className={styles.option}
+              className={cx(styles.option, {
+                [styles.disabled]: value?.length && value.length >= 3,
+              })}
               onClick={(e) => {
                 e.stopPropagation();
                 onChange([...(value || []), type]);

@@ -1,16 +1,12 @@
 @use "../../styles/variables" as vars;
 
-.container {
-  --input-bd: red;
-  --input-bg: green;
-}
-
 .controls {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   position: sticky;
   top: 0;
-  background-color: white;
+  background-color: vars.$background;
   z-index: vars.$zIndex-menu;
   padding: 1rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
@@ -18,13 +14,35 @@
   .filters {
     display: flex;
     gap: 1rem;
+
     .search {
-      border-radius: 20px;
-      flex-grow: 1;
+      display: block;
+      flex-grow: 8;
+      background-color: vars.$background-light;
+      transition: background-color vars.$transition-duration;
+      border: 0.25rem solid vars.$foreground;
+      color: vars.$font-color;
+      padding: 0 1rem;
+
+      &::placeholder {
+        color: vars.$font-color-dim;
+      }
+
+      &:focus {
+        outline: none;
+        background-color: vars.$foreground;
+      }
     }
+
     .type {
-      border-radius: 20px;
-      flex-grow: 5;
+      background-color: vars.$background-light;
+      border: 0.25rem solid vars.$foreground;
+      flex-grow: 10;
+      max-width: 50%;
+    }
+
+    .layout {
+      flex-grow: 1;
     }
   }
 }

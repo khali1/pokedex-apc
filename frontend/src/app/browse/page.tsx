@@ -71,15 +71,18 @@ export default function BrowsePage() {
             value={type || []}
             options={types || []}
             onChange={setType}
+            className={styles.type}
           />
-          <ContentSwitcher
-            value={layout}
-            onChange={(value) => setLayout(value as LayoutPreference)}
-            data={[
-              { label: <IconLayoutGrid />, value: LayoutPreference.Grid },
-              { label: <IconLayoutList />, value: LayoutPreference.List },
-            ]}
-          />
+          <div className={styles.layout}>
+            <ContentSwitcher
+              value={layout}
+              onChange={(value) => setLayout(value as LayoutPreference)}
+              data={[
+                { label: <IconLayoutGrid />, value: LayoutPreference.Grid },
+                { label: <IconLayoutList />, value: LayoutPreference.List },
+              ]}
+            />
+          </div>
         </div>
       </div>
       {data?.pages && (

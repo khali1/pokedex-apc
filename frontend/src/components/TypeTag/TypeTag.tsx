@@ -18,20 +18,16 @@ const TypeTag = ({ type, onXClick }: TypeTagProps) => {
     <div
       className={`${styles.typeTag} ${styles[type.toLowerCase()]}`}
       onClick={(e) => {
-        e.preventDefault();
-        router.push(`/browse/?type=${type}`);
+        e.stopPropagation();
+        if (onXClick) {
+          onXClick(type);
+        } else {
+          router.push(`/browse/?type=${type}`);
+        }
       }}
     >
       <Icon className={`${styles.icon}`} />
       <span>{type}</span>
-      {onXClick && (
-        <IconX
-          onClick={(e) => {
-            e.stopPropagation();
-            onXClick(type);
-          }}
-        />
-      )}
     </div>
   );
 };

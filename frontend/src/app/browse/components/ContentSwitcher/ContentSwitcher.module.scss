@@ -1,8 +1,22 @@
+@use "../../../../styles/variables" as vars;
 .container {
+  height: 5rem;
+  line-height: 5rem;
+  text-align: center;
   display: flex;
-  gap: 16px;
-}
+  background-color: vars.$background-light;
+  border: 0.25rem solid vars.$foreground;
 
-.active {
-  background-color: red;
+  div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color vars.$transition-duration;
+
+    &.active {
+      background-color: vars.$foreground;
+    }
+  }
 }
