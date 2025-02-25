@@ -16,6 +16,8 @@
     padding: 1rem;
 
     .icons {
+      display: flex;
+      gap: 1rem;
       z-index: 1;
       margin: auto 0;
       width: fit-content;

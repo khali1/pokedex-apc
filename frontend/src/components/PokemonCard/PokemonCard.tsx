@@ -2,38 +2,21 @@ import styles from "./PokemonCard.module.scss";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { GQLPokemon } from "../../../graphqlTypes";
-import {
-  IconHeart,
-  IconHeartFilled,
-  IconInfoCircle,
-} from "@tabler/icons-react";
-import { useCallback, useState } from "react";
+import { IconInfoCircle } from "@tabler/icons-react";
+import { useState } from "react";
 import TypeTag from "../TypeTag/TypeTag";
-import Modal from "../Modal/Modal";
 import PokemonCardModal from "./PokemonCardModal";
+import FavoriteButton from "../FavoriteButton/FavoriteButton";
 
 interface PokemonCardProps {
   pokemon: Partial<GQLPokemon>;
-  favoritePokemon: ({ id }: { id: string }) => void;
-  unfavoritePokemon: ({ id }: { id: string }) => void;
   secondary?: boolean;
 }
 
 export const PokemonCard = ({
   pokemon,
-  favoritePokemon,
-  unfavoritePokemon,
   secondary = false,
 }: PokemonCardProps) => {
-  const onClick = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      const favFn = pokemon.isFavorite ? unfavoritePokemon : favoritePokemon;
-      pokemon.id && favFn({ id: pokemon.id });
-    },
-    [pokemon.id, pokemon.isFavorite, favoritePokemon, unfavoritePokemon]
-  );
-
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
   return (
@@ -43,9 +26,12 @@ export const PokemonCard = ({
           <h2>{pokemon.name}</h2>
         </Link>
         <div className={styles.headerButtons}>
-          <button className={styles.favoriteButton} onClick={onClick}>
-            {pokemon.isFavorite ? <IconHeartFilled /> : <IconHeart />}
-          </button>
+          {pokemon.id && (
+            <FavoriteButton
+              pokemonId={pokemon.id}
+              isFavorite={pokemon.isFavorite ?? false}
+            />
+          )}
           {!secondary && (
             <button
               className={styles.infoButton}

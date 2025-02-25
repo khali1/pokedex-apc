@@ -12,6 +12,7 @@ import { SoundPlayer } from "./SoundPlayer/SoundPlayer";
 import { motion } from "framer-motion";
 import TypeTag from "@/components/TypeTag/TypeTag";
 import { IconArrowLeft } from "@tabler/icons-react";
+import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
 
 export default function PokemonDetail() {
   const { name } = useParams<{ name: string }>();
@@ -37,6 +38,12 @@ export default function PokemonDetail() {
       <div className={styles.header}>
         <h2 className={styles.name}>{pokemon?.name}</h2>
         <div className={styles.icons}>
+          {pokemon?.id && (
+            <FavoriteButton
+              pokemonId={pokemon.id}
+              isFavorite={pokemon.isFavorite ?? false}
+            />
+          )}
           <SoundPlayer sound={pokemon?.sound} />
         </div>
       </div>
