@@ -1,4 +1,5 @@
 "use client";
+
 import { useParams } from "next/navigation";
 import styles from "./page.module.scss";
 import Link from "next/link";
@@ -7,9 +8,7 @@ import { GQLQuery } from "../../../graphqlTypes";
 import { fetchGraphQL } from "@/api/fetchers";
 import { GET_POKEMON_BY_NAME } from "@/api/queries";
 import { PokemonCard } from "@/components/PokemonCard/PokemonCard";
-import { useFavoritePokemon } from "@/hooks/useFavoritePokemon";
 import { SoundPlayer } from "./SoundPlayer/SoundPlayer";
-import { motion } from "framer-motion";
 import TypeTag from "@/components/TypeTag/TypeTag";
 import { IconArrowLeft } from "@tabler/icons-react";
 import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
@@ -27,9 +26,8 @@ export default function PokemonDetail() {
     queryKey: ["pokemonByName", name],
     queryFn: () => fetchGraphQL(GET_POKEMON_BY_NAME, { name }),
   });
-  const { favorite, unfavorite } = useFavoritePokemon();
   const pokemon = data?.pokemonByName;
-
+  const image = cachedData?.image || pokemon?.image;
   return (
     <div className={styles.container}>
       <Link href="/browse" className={styles.backLink}>
@@ -106,12 +104,7 @@ export default function PokemonDetail() {
         </div>
 
         <div className={styles.media}>
-          <motion.img
-            layoutId={`pokemon-${name}`}
-            className={styles.image}
-            src={cachedData?.image || pokemon?.image}
-            alt={name}
-          />
+          <img className={styles.image} src={image} alt={name} />
         </div>
       </div>
       {pokemon?.evolutions?.length ? (
@@ -119,13 +112,7 @@ export default function PokemonDetail() {
           <h2>Evolutions</h2>
           <div className={styles.evolutionsContent}>
             {pokemon?.evolutions.map((evolution) => (
-              <PokemonCard
-                secondary
-                key={evolution.id}
-                pokemon={evolution}
-                unfavoritePokemon={unfavorite.mutate}
-                favoritePokemon={favorite.mutate}
-              />
+              <PokemonCard secondary key={evolution.id} pokemon={evolution} />
             ))}
           </div>
         </div>

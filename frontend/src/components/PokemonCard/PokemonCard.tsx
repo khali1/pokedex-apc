@@ -1,6 +1,7 @@
+"use client";
+
 import styles from "./PokemonCard.module.scss";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import { GQLPokemon } from "../../../graphqlTypes";
 import { IconInfoCircle } from "@tabler/icons-react";
 import { useState } from "react";
@@ -35,7 +36,7 @@ export const PokemonCard = ({
           {!secondary && (
             <button
               className={styles.infoButton}
-              onClick={(e) => {
+              onClick={() => {
                 setIsInfoModalOpen(!isInfoModalOpen);
               }}
             >

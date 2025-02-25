@@ -1,3 +1,5 @@
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
 import Modal from "../Modal/Modal";
 import { fetchGraphQL } from "@/api/fetchers";
@@ -55,7 +57,7 @@ const PokemonCardModal = ({
           </div>
           {pokemon?.attacks &&
             Object.keys(pokemon?.attacks).map((key) => (
-              <div>
+              <div key={key}>
                 <h4>Attacks - {key}</h4>
                 <p>
                   {pokemon?.attacks[key as keyof typeof pokemon.attacks]

@@ -18,7 +18,7 @@
 
     .search {
       display: block;
-      flex-grow: 8;
+      width: 40%;
       background-color: vars.$background-light;
       transition: background-color vars.$transition-duration;
       border: 0.25rem solid vars.$foreground;
@@ -38,12 +38,12 @@
     .type {
       background-color: vars.$background-light;
       border: 0.25rem solid vars.$foreground;
-      flex-grow: 10;
+      width: 50%;
       max-width: 50%;
     }
 
     .layout {
-      flex-grow: 1;
+      width: 10%;
     }
   }
 }

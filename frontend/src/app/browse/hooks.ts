@@ -8,7 +8,7 @@ import { useMemo } from "react";
 
 const LIMIT = 10;
 
-export const useBrowsePokemons = (search: String, type: String[] | null, resultsPreference: ResultsPreference) => {
+export const useBrowsePokemons = (search: string, type: string[] | null, resultsPreference: ResultsPreference) => {
   const { data: typesData, isLoading: isTypesLoading } = useQuery<GQLQuery>({
     queryKey: ["pokemonTypes"],
     queryFn: () => fetchGraphQL(GET_POKEMON_TYPES),

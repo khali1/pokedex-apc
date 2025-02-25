@@ -1,3 +1,5 @@
+"use client";
+
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import { useCallback } from "react";
 import { useFavoritePokemon } from "@/hooks/useFavoritePokemon";
@@ -13,8 +15,11 @@ const FavoriteButton = ({ pokemonId, isFavorite }: FavoriteButtonProps) => {
   const onClick = useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
+
+      if (!pokemonId) return;
+
       const favFn = isFavorite ? unfavorite : favorite;
-      pokemonId && favFn.mutate({ id: pokemonId });
+      favFn.mutate({ id: pokemonId });
     },
     [pokemonId, isFavorite, favorite, unfavorite]
   );

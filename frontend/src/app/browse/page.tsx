@@ -1,4 +1,5 @@
 "use client";
+
 import { useQueryState, parseAsArrayOf, parseAsString } from "nuqs";
 import { useBrowsePokemons } from "./hooks";
 import TypeFilter from "./components/TypeFilter/TypeFilter";
@@ -32,15 +33,8 @@ export default function BrowsePage() {
     window.scrollTo(0, 0);
   }, [layout]);
 
-  const {
-    data,
-    error,
-    isLoading,
-    fetchNextPage,
-    isFetchingNextPage,
-    hasNextPage,
-    types,
-  } = useBrowsePokemons(search, type, resultsPreference);
+  const { data, fetchNextPage, isFetchingNextPage, hasNextPage, types } =
+    useBrowsePokemons(search, type, resultsPreference);
 
   const loadMoreRef = useInfiniteScroll({
     fetchNextPage,
