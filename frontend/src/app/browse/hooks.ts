@@ -29,6 +29,7 @@ export const useBrowsePokemons = (search: String, type: String[] | null, results
     isFetchingNextPage,
     hasNextPage,
   } = useInfiniteQuery<GQLQuery, Error, InfiniteData<GQLQuery>>({
+      placeholderData: lastData => lastData,
       queryKey: ["pokemons", search, type, resultsPreference],
       initialPageParam: 0,
       getNextPageParam: (lastPage, pages) =>
@@ -41,7 +42,7 @@ export const useBrowsePokemons = (search: String, type: String[] | null, results
           offset: (context.pageParam as number) * LIMIT,
           search,
           filter: filters,
-        }),
+        })
     });
 
     return {
