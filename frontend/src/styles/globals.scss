@@ -76,6 +76,8 @@ button {
 
 html {
   font-size: clamp(8px, 1vw, 10px);
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -96,4 +98,18 @@ button {
     2vw,
     1.6rem
   ); /* Ensures buttons remain touch-friendly */
+}
+
+/* Optional: Style the scrollbar to be less obtrusive */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
 }
