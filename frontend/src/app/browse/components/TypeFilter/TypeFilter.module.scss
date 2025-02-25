@@ -9,6 +9,7 @@
   }
 
   .trigger {
+    position: relative;
     padding: 0 1rem;
     height: 100%;
     cursor: pointer;
@@ -17,6 +18,12 @@
     overflow: hidden;
     background-color: vars.$background-light;
     transition: background-color vars.$transition-duration;
+
+    .clearIcon {
+      color: vars.$font-color-dim;
+      position: absolute;
+      right: 1rem;
+    }
 
     .placeholder {
       color: vars.$font-color-dim;

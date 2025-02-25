@@ -44,7 +44,7 @@ const TypeFilter = ({
           />
         ))}
         <IconX
-          className={cx({
+          className={cx(styles.clearIcon, {
             [styles.hidden]: value?.length === 0,
           })}
           onClick={(e) => {
