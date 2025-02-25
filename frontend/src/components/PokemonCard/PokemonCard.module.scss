@@ -47,37 +47,39 @@
   }
 }
 
-:global(.list) {
-  .card {
-    overflow: hidden;
-    position: relative;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    height: 20rem;
-    padding: 0 2rem 0 0;
-    border-bottom: 0.25rem solid vars.$foreground;
+@include vars.tabletMin {
+  :global(.list) {
+    .card {
+      overflow: hidden;
+      position: relative;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      height: 20rem;
+      padding: 0 2rem 0 0;
+      border-bottom: 0.25rem solid vars.$foreground;
 
-    .header {
-      width: fit-content;
-      gap: 1rem;
-      height: 100%;
+      .header {
+        width: fit-content;
+        gap: 1rem;
+        height: 100%;
 
-      a {
-        margin: auto 0;
+        a {
+          margin: auto 0;
+        }
       }
-    }
 
-    .imageWrapper {
-      width: 30rem;
-      max-width: 30rem;
-      margin-right: 10rem;
-    }
+      .imageWrapper {
+        width: 30rem;
+        max-width: 30rem;
+        margin-right: 10rem;
+      }
 
-    .typeTags {
-      position: absolute;
-      right: 2rem;
-      flex-direction: column;
-      align-items: flex-end;
+      .typeTags {
+        position: absolute;
+        right: 2rem;
+        flex-direction: column;
+        align-items: flex-end;
+      }
     }
   }
 }

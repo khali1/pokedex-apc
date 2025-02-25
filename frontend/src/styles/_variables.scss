@@ -8,31 +8,32 @@ $font-color: rgb(255, 255, 255);
 $border-radius: 1rem;
 $transition-duration: 0.2s;
 
-// Breakpoints
-$mobile: 600px;
-$tablet: 768px;
-$desktop: 1024px;
-
 // zIndexes
 $zIndex-modal: 100;
 $zIndex-backdrop: 99;
 $zIndex-menu: 90;
 
 // Mixins
-@mixin mobile {
-  @media (max-width: $mobile) {
+@mixin mobileMax {
+  @media screen and (max-width: 767px) {
     @content;
   }
 }
 
-@mixin tablet {
-  @media (max-width: $tablet) {
+@mixin tabletMin {
+  @media screen and (min-width: 768px) {
     @content;
   }
 }
 
-@mixin desktop {
-  @media (min-width: $desktop) {
+@mixin tabletMax {
+  @media screen and (max-width: 1023px) {
+    @content;
+  }
+}
+
+@mixin desktopMin {
+  @media screen and (min-width: 1024px) {
     @content;
   }
 }

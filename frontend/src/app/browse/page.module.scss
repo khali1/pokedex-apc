@@ -24,6 +24,7 @@
       border: 0.25rem solid vars.$foreground;
       color: vars.$font-color;
       padding: 0 1rem;
+      flex-grow: 1;
 
       &::placeholder {
         color: vars.$font-color-dim;
@@ -44,6 +45,31 @@
 
     .layout {
       width: 10%;
+      max-width: 10rem;
+    }
+  }
+
+  @include vars.mobileMax {
+    .filters {
+      height: 10rem;
+      flex-direction: column;
+
+      .type {
+        height: 5rem;
+        width: 100%;
+        max-width: 100%;
+      }
+      .search {
+        height: 5rem;
+        width: 100%;
+      }
+    }
+  }
+  @include vars.tabletMax {
+    .filters {
+      .layout {
+        display: none;
+      }
     }
   }
 }

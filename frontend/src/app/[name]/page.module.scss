@@ -108,7 +108,7 @@
     }
   }
 
-  @include vars.mobile {
+  @include vars.mobileMax {
     padding: 2rem 1rem;
 
     .content {

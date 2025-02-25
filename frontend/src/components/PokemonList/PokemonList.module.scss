@@ -1,13 +1,15 @@
+@use "../../styles/variables" as vars;
+
 .container {
   padding: 0 0.5rem;
 
-  &:global(.grid) {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 
-  &:global(.list) {
-    display: flex;
-    flex-direction: column;
+  @include vars.tabletMin {
+    &:global(.list) {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }

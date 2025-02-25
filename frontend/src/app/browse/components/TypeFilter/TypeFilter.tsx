@@ -31,7 +31,7 @@ const TypeFilter = ({
             [styles.hidden]: value?.length !== 0,
           })}
         >
-          Filter by up to 5 types
+          Filter by up to 4 types
         </span>
         {value?.map((val) => (
           <TypeTag
@@ -66,7 +66,7 @@ const TypeFilter = ({
             <div
               key={type}
               className={cx(styles.option, {
-                [styles.disabled]: value?.length && value.length >= 5,
+                [styles.disabled]: value?.length && value.length >= 4,
               })}
               onClick={(e) => {
                 e.stopPropagation();
