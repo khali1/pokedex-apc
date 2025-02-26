@@ -8,9 +8,10 @@ import { IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
 import { useLocalStorage } from "@mantine/hooks";
 import { LayoutPreference, ResultsPreference } from "@/constants";
 import { useEffect, useState } from "react";
-import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import { usePokemonTypes } from "@/hooks/usePokemonTypes";
 import styles from "./page.module.scss";
 import ContentSwitcher from "./components/ContentSwitcher/ContentSwitcher";
+import { Spinner } from "@/components/Spinner/Spinner";
 
 export default function BrowsePage() {
   const [resultsPreference, setResultsPreference] = useState<ResultsPreference>(
@@ -28,19 +29,15 @@ export default function BrowsePage() {
     defaultValue: LayoutPreference.Grid,
   });
 
+  const { data: types, isLoading: isTypesLoading } = usePokemonTypes();
+
   // Fixes the infinite data fetching when changing the layout in the middle of the list
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [layout]);
 
-  const { data, fetchNextPage, isFetchingNextPage, hasNextPage, types } =
+  const { isLoading, data, isFetchingNextPage, hasNextPage, loadMoreRef } =
     useBrowsePokemons(search, type, resultsPreference);
-
-  const loadMoreRef = useInfiniteScroll({
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  });
 
   return (
     <div className={styles.container}>
@@ -61,12 +58,14 @@ export default function BrowsePage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <TypeFilter
-            value={type || []}
-            options={types || []}
-            onChange={setType}
-            className={styles.type}
-          />
+          {!isTypesLoading && (
+            <TypeFilter
+              value={type || []}
+              options={types || []}
+              onChange={setType}
+              className={styles.type}
+            />
+          )}
           <div className={styles.layout}>
             <ContentSwitcher
               value={layout}
@@ -79,15 +78,21 @@ export default function BrowsePage() {
           </div>
         </div>
       </div>
-      {data?.pages && (
-        <PokemonList
-          layout={layout}
-          values={data.pages.flatMap((page) => page.pokemons.edges)}
-        />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        data?.pages && (
+          <PokemonList
+            layout={layout}
+            values={data.pages.flatMap((page) => page.pokemons.edges)}
+          />
+        )
       )}
-      <div ref={loadMoreRef} className={styles.loadMore}>
-        {isFetchingNextPage && <div>Loading more...</div>}
-      </div>
+      {hasNextPage && (
+        <div ref={loadMoreRef} className={styles.loadMore}>
+          {isFetchingNextPage && <div>Loading more...</div>}
+        </div>
+      )}
     </div>
   );
 }

@@ -4,6 +4,6 @@ export enum LayoutPreference {
 };
 
 export enum ResultsPreference {
-    Favorites = "favorites",
-    All = "all",
+  Favorites = "favorites",
+  All = "all",
 };
