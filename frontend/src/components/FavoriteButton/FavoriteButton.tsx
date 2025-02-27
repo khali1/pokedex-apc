@@ -12,6 +12,7 @@ interface FavoriteButtonProps {
 
 const FavoriteButton = ({ pokemonId, isFavorite }: FavoriteButtonProps) => {
   const { favorite, unfavorite } = useFavoritePokemon();
+
   const onClick = useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
